@@ -13,28 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ApiExceptionV2Controller {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ErrorResult illegalExhandler(IllegalArgumentException e) {
-        log.error("[exceptionHandler] ex", e);
-        return new ErrorResult("BAD", e.getMessage());
-    }
-
-    // 위에꺼랑 똑같은거임
-    @ExceptionHandler
-    public ResponseEntity<ErrorResult> userExHandler(UserException e){
-        log.error("[exceptionHandler] ex", e);
-        ErrorResult errorResult = new ErrorResult("USER-EX", e.getMessage());
-        return new ResponseEntity(errorResult, HttpStatus.BAD_REQUEST);
-    }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler
-    public ErrorResult exHandler(Exception e) {
-        //runtime 오류의 부모가 exception 이다 . 자식들도 다 처리해준다
-        log.error("[exceptionHandler] ex", e);
-        return new ErrorResult("EX", "내부 오류");
-    }
     @GetMapping("/api2/members/{id}")
     public MemberDto getMember(@PathVariable("id") String id) {
 
